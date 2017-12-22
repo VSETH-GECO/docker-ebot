@@ -55,7 +55,7 @@ sed -i "s/MANAGE_PLAYER =.*/MANAGE_PLAYER = $MANAGE_PLAYER/g" $EBOT_HOME/config/
 sed -i "s/DELAY_BUSY_SERVER =.*/DELAY_BUSY_SERVER = $DELAY_BUSY_SERVER/g" $EBOT_HOME/config/config.ini
 sed -i "s/NB_MAX_MATCHS =.*/NB_MAX_MATCHS = $NB_MAX_MATCHS/g" $EBOT_HOME/config/config.ini
 sed -i "s/PAUSE_METHOD =.*/PAUSE_METHOD = \"$PAUSE_METHOD\"/g" $EBOT_HOME/config/config.ini
-sed -i "s/MAP =.*/MAP = $MAP/g" $EBOT_HOME/config/config.ini
+sed -i "s/MAP[] =.*/MAP = $MAP/g" $EBOT_HOME/config/config.ini
 sed -i "s/COMMAND_STOP_DISABLED =.*/COMMAND_STOP_DISABLED = $COMMAND_STOP_DISABLED/g" $EBOT_HOME/config/config.ini
 sed -i "s/RECORD_METHOD =.*/RECORD_METHOD = \"$RECORD_METHOD\"/g" $EBOT_HOME/config/config.ini
 sed -i "s/LO3_METHOD =.*/LO3_METHOD = \"$LO3_METHOD\"/g" $EBOT_HOME/config/config.ini
