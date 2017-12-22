@@ -1,5 +1,5 @@
 ebot:
-  image: hsfactory/ebot
+  image: docker.stammgruppe.eu/ebot
   restart: always
   links:
     - "mysql:mysql"
@@ -13,11 +13,22 @@ ebot:
     - /opt/docker/ebot/demos:/ebot/demos
   environment:
     EXTERNAL_IP: 'xxx.xxx.xxx.xxx'
+    BOT_PORT: '12360'
     MYSQL_HOST: 'mysql'
     MYSQL_PORT: '3306'
     MYSQL_DB: 'ebotv3'
     MYSQL_USER: 'ebotv3'
     MYSQL_PASS: 'ebotv3'
+    SSL_ENABLED: 'false'
+    SSL_CERTIFICATE_PATH: 'ssl/cert.pem'
+    SSL_KEY_PATH: 'ssl/key.pem'
+    MANAGE_PLAYER: '1'
+    DELAY_BUSY_SERVER: '120'
+    NB_MAX_MATCHS: '0'
+    PAUSE_METHOD: 'nextRound'
+    MAP: '["de_dust2_se","de_nuke_se","de_inferno_se","de_mirage_ce","de_train_se","de_cache","de_season","de_dust","de_nuke","de_inferno","de_train","de_mirage","de_cbble","de_overpass"]'
+    COMMAND_STOP_DISABLED: 'false'
+    RECORD_METHOD: 'matchstart'
     LO3_METHOD: 'restart'
     KO3_METHOD: 'restart'
     DEMO_DOWNLOAD: 'true'
@@ -25,11 +36,11 @@ ebot:
     DAMAGE_REPORT: 'true'
     DELAY_READY: 'false'
     NODE_STARTUP_METHOD: 'node'
-    USE_DELAY_END_RECORD: 'true'
     TOORNAMENT_PLUGIN_KEY: ''
+    USE_DELAY_END_RECORD: 'true'
 
 ebotweb:
-  image: hsfactory/ebotweb
+  image: docker.stammgruppe.eu/ebotweb
   restart: always
   links:
     - "mysql:mysql"
@@ -37,7 +48,7 @@ ebotweb:
     - "80:80"
   volumes:
     - /opt/docker/ebot/demos:/opt/ebot/demos
-    - /opt/docker/ebot/logs:/opt/ebot/logs
+    - /opt/docker/ebot/logs:/opt/ebotlogs
   environment:
     EBOT_IP: 'xxx.xxx.xxx.xxx'
     EBOT_PORT: '12360'
@@ -50,7 +61,12 @@ ebotweb:
     MYSQL_USER: 'ebotv3'
     MYSQL_PASS: 'ebotv3'
     DEMO_DOWNLOAD: 'true'
+    DEFAULT_MAX_ROUND: '15'
     DEFAULT_RULES: 'esl5on5'
+    DEFAULT_OVERTIME_MAX_ROUND: '3'
+    DEFAULT_OVERTIME_STARTMONEY: '16000'
+    MODE: 'net'
+    REFRESH_TIME: '30'
     TOORNAMENT_ID: ''
     TOORNAMENT_SECRET: ''
     TOORNAMENT_API_KEY: ''
