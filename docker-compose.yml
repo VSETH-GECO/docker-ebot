@@ -40,7 +40,7 @@ ebot:
     USE_DELAY_END_RECORD: 'true'
 
 ebotweb:
-  image: docker.stammgruppe.eu/ebotweb
+  image: docker.stammgruppe.eu/ebotweb:1
   restart: always
   links:
     - "mysql:mysql"
