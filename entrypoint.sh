@@ -18,7 +18,8 @@ DELAY_BUSY_SERVER="${DELAY_BUSY_SERVER:-120}"
 NB_MAX_MATCHS="${NB_MAX_MATCHS:-0}"
 PAUSE_METHOD="${PAUSE_METHOD:-nextRound}"
 
-MAP="${MAP:-['de_dust2_se','de_nuke_se','de_inferno_se','de_mirage_ce','de_train_se','de_cache','de_season','de_dust2','de_nuke','de_inferno','de_train','de_mirage','de_cbble','de_overpass']}"
+MAP="${MAP:-de_dust2_se de_nuke_se de_inferno_se de_mirage_ce de_train_se de_cache de_season de_dust de_nuke de_inferno de_train de_mirage de_cbble de_overpass}"
+MAP=($MAP)
 
 COMMAND_STOP_DISABLED="${COMMAND_STOP_DISABLED:-false}"
 RECORD_METHOD="${RECORD_METHOD:-matchstart}"
@@ -55,7 +56,14 @@ sed -i "s/MANAGE_PLAYER =.*/MANAGE_PLAYER = $MANAGE_PLAYER/g" $EBOT_HOME/config/
 sed -i "s/DELAY_BUSY_SERVER =.*/DELAY_BUSY_SERVER = $DELAY_BUSY_SERVER/g" $EBOT_HOME/config/config.ini
 sed -i "s/NB_MAX_MATCHS =.*/NB_MAX_MATCHS = $NB_MAX_MATCHS/g" $EBOT_HOME/config/config.ini
 sed -i "s/PAUSE_METHOD =.*/PAUSE_METHOD = \"$PAUSE_METHOD\"/g" $EBOT_HOME/config/config.ini
-sed -i "s/MAP[] =.*/MAP = $MAP/g" $EBOT_HOME/config/config.ini
+
+# Parse maps
+sed -i "s/MAP\[\]\s*=.*//g" $EBOT_HOME/config/config.ini # Remove all current maps
+for i in "${MAP[@]}"
+do
+    sed -i "s/\[MAPS\]/\[MAPS\]\nMAP\[\] = \"$i\"/g" $EBOT_HOME/config/config.ini # Write custom maps
+done
+
 sed -i "s/COMMAND_STOP_DISABLED =.*/COMMAND_STOP_DISABLED = $COMMAND_STOP_DISABLED/g" $EBOT_HOME/config/config.ini
 sed -i "s/RECORD_METHOD =.*/RECORD_METHOD = \"$RECORD_METHOD\"/g" $EBOT_HOME/config/config.ini
 sed -i "s/LO3_METHOD =.*/LO3_METHOD = \"$LO3_METHOD\"/g" $EBOT_HOME/config/config.ini
@@ -66,6 +74,8 @@ sed -i "s/DAMAGE_REPORT =.*/DAMAGE_REPORT = $DAMAGE_REPORT/g" $EBOT_HOME/config/
 sed -i "s/NODE_STARTUP_METHOD =.*/NODE_STARTUP_METHOD = $NODE_STARTUP_METHOD/g" $EBOT_HOME/config/config.ini
 sed -i "s/DELAY_READY = .*/DELAY_READY = $DELAY_READY/g" $EBOT_HOME/config/config.ini
 sed -i "s/USE_DELAY_END_RECORD = .*/USE_DELAY_END_RECORD = \"$USE_DELAY_END_RECORD\"/g" $EBOT_HOME/config/config.ini
+
+sed -i "/^\s*$/d" $EBOT_HOME/config/config.ini # Remove empty lines
 
 echo -e "\n" >> $EBOT_HOME/config/plugins.ini
 echo '[\eBot\Plugins\Official\ToornamentNotifier]' >> $EBOT_HOME/config/plugins.ini

@@ -1,5 +1,5 @@
 ebot:
-  image: docker.stammgruppe.eu/ebot
+  image: docker.stammgruppe.eu/ebot:4
   restart: always
   links:
     - "mysql:mysql"
@@ -26,7 +26,7 @@ ebot:
     DELAY_BUSY_SERVER: '120'
     NB_MAX_MATCHS: '0'
     PAUSE_METHOD: 'nextRound'
-    MAP: '["de_dust2_se","de_nuke_se","de_inferno_se","de_mirage_ce","de_train_se","de_cache","de_season","de_dust","de_nuke","de_inferno","de_train","de_mirage","de_cbble","de_overpass"]'
+    MAP: 'de_test1 de_test2 de_test3'
     COMMAND_STOP_DISABLED: 'false'
     RECORD_METHOD: 'matchstart'
     LO3_METHOD: 'restart'
