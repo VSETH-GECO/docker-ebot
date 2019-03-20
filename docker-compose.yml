@@ -1,7 +1,7 @@
 version: '3'
 services:
   ebot:
-    image: docker.stammgruppe.eu/ebot:4
+    image: docker.stammgruppe.eu/ebot:kgns
     restart: always
     # links:
     #  - "mysql:mysql"
@@ -15,6 +15,8 @@ services:
       - /opt/docker/ebot/demos:/ebot/demos
     networks:
       - database
+    depends_on:
+      - mysql
     environment:
       EXTERNAL_IP: '10.10.0.30'
       BOT_PORT: '12360'
@@ -44,7 +46,7 @@ services:
       USE_DELAY_END_RECORD: 'true'
 
   ebotweb:
-    image: docker.stammgruppe.eu/ebotweb:1
+    image: docker.stammgruppe.eu/ebotweb:kgns
     restart: always
     #links:
     #  - "mysql:mysql"
@@ -55,6 +57,9 @@ services:
       - /opt/docker/ebot/logs:/opt/ebotlogs
     networks:
       - database
+    depends_on:
+      - mysql
+      - ebot
     environment:
       EBOT_IP: '10.10.0.30'
       EBOT_PORT: '12360'
